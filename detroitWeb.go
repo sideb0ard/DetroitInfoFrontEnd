@@ -13,18 +13,19 @@ func handler(w http.ResponseWriter, r *http.Request) {
 }
 
 func main() {
+	fmt.Println("Starting up server..!")
 	http.HandleFunc("/", handler)
-	http.ListenAndServe(":8080", nil)
+	http.ListenAndServe(":7774", nil)
 }
 
 func getArtistInfo(art_id string) string {
-	resp, err := http.Get("http://localhost:8081/artist/" + art_id)
+	resp, err := http.Get("http://localhost:7777/artist/" + art_id)
 	if err != nil {
 		return err.Error()
 		// handle error
 	}
 	defer resp.Body.Close()
 	body, err := ioutil.ReadAll(resp.Body)
-	fmt.Println("YARR!")
+	fmt.Println("Got request for ", art_id)
 	return (string(body[:]))
 }
